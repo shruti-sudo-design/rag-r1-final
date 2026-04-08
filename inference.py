@@ -288,10 +288,22 @@ def run_baseline(task: str, n_episodes: int, base_url: str, policy: str = "basel
                 error_msg: Optional[str] = None
                 reward_val = 0.0
 
+                # Generate answer here (in inference.py process) so all LLM calls
+                # go through the API_BASE_URL / API_KEY injected by the validator.
+                chunk_texts = [
+                    obs["retrieved_chunks"][i]["content"]
+                    for i in selected
+                    if i < len(obs.get("retrieved_chunks", []))
+                ]
+                try:
+                    answer = generate_answer(obs.get("query", ""), chunk_texts)
+                except Exception:
+                    answer = " ".join(chunk_texts)[:512]
+
                 try:
                     resp = requests.post(
                         step_url,
-                        json={"selected_chunk_indices": selected},
+                        json={"selected_chunk_indices": selected, "generated_answer": answer},
                         timeout=120,
                     )
                     resp.raise_for_status()
