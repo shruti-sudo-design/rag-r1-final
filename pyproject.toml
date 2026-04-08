@@ -4,6 +4,7 @@ version = "1.0.0"
 description = "RL environment for optimal chunk selection in RAG pipelines"
 requires-python = ">=3.10"
 dependencies = [
+    "openenv-core>=0.2.0",
     "fastapi>=0.111.0",
     "requests>=2.31.0",
     "uvicorn[standard]>=0.29.0",
@@ -15,5 +16,5 @@ dependencies = [
     "torch",
 ]
 
-[tool.uv.scripts]
-server = "uvicorn main:app --host 0.0.0.0 --port 7860"
+[project.scripts]
+server = "server.app:main"
