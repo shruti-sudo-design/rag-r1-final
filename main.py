@@ -6,8 +6,10 @@ OpenEnv-compatible RL environment for chunk selection in RAG pipelines.
 from contextlib import asynccontextmanager
 from typing import Dict, List, Optional
 
+import os
+
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, PlainTextResponse
 from pydantic import BaseModel
 
 from env import Observation, RagRLEnvironment, Reward
@@ -720,3 +722,11 @@ def state():
 @app.get("/health")
 def health():
     return {"status": "ok", "active_task": _active_task, "loaded_tasks": list(_envs.keys())}
+
+
+@app.get("/openenv.yaml", response_class=PlainTextResponse, include_in_schema=False)
+def serve_openenv_yaml():
+    """Serve the openenv.yaml spec file."""
+    yaml_path = os.path.join(os.path.dirname(__file__), "openenv.yaml")
+    with open(yaml_path, "r") as f:
+        return PlainTextResponse(content=f.read(), media_type="text/yaml")
