@@ -32,9 +32,10 @@ from sentence_transformers import SentenceTransformer
 # LLM configuration (env vars only — no hardcoded keys)
 # ---------------------------------------------------------------------------
 
-API_BASE_URL = os.getenv("API_BASE_URL") or "https://router.huggingface.co/v1"
-MODEL_NAME = os.getenv("MODEL_NAME") or "Qwen/Qwen2.5-72B-Instruct"
-HF_TOKEN = os.getenv("HF_TOKEN") or "placeholder"
+API_BASE_URL     = os.getenv("API_BASE_URL", "https://router.huggingface.co/v1")
+MODEL_NAME       = os.getenv("MODEL_NAME",   "Qwen/Qwen2.5-72B-Instruct")
+HF_TOKEN         = os.getenv("HF_TOKEN")        # no default — must be supplied at runtime
+LOCAL_IMAGE_NAME = os.getenv("LOCAL_IMAGE_NAME") # optional — only used with from_docker_image()
 
 BENCHMARK = "rag-rl"
 SUCCESS_SCORE_THRESHOLD = 0.5  # episode scores >= this count as success
