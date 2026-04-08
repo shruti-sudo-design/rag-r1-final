@@ -35,6 +35,7 @@ from sentence_transformers import SentenceTransformer
 API_BASE_URL     = os.getenv("API_BASE_URL", "https://router.huggingface.co/v1")
 MODEL_NAME       = os.getenv("MODEL_NAME",   "Qwen/Qwen2.5-72B-Instruct")
 HF_TOKEN         = os.getenv("HF_TOKEN")        # no default — must be supplied at runtime
+API_KEY          = os.getenv("API_KEY") or HF_TOKEN  # OpenEnv validator injects API_KEY
 LOCAL_IMAGE_NAME = os.getenv("LOCAL_IMAGE_NAME") # optional — only used with from_docker_image()
 
 BENCHMARK = "rag-rl"
@@ -63,7 +64,7 @@ def _semantic_similarity(reference: str, generated: str) -> float:
 
 
 def _client() -> OpenAI:
-    return OpenAI(base_url=API_BASE_URL, api_key=HF_TOKEN)
+    return OpenAI(base_url=API_BASE_URL, api_key=API_KEY)
 
 
 # ---------------------------------------------------------------------------
