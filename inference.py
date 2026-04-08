@@ -64,7 +64,12 @@ def _semantic_similarity(reference: str, generated: str) -> float:
 
 
 def _client() -> OpenAI:
-    return OpenAI(base_url=API_BASE_URL, api_key=API_KEY)
+    """Create OpenAI-compatible client using env vars read at call time.
+    Reads API_BASE_URL and API_KEY exactly as the OpenEnv validator injects them.
+    """
+    base_url = os.environ.get("API_BASE_URL", "https://router.huggingface.co/v1")
+    api_key  = os.environ.get("API_KEY") or os.environ.get("HF_TOKEN")
+    return OpenAI(base_url=base_url, api_key=api_key)
 
 
 # ---------------------------------------------------------------------------
@@ -295,9 +300,14 @@ def run_baseline(task: str, n_episodes: int, base_url: str, policy: str = "basel
                     for i in selected
                     if i < len(obs.get("retrieved_chunks", []))
                 ]
+                _api_base = os.environ.get("API_BASE_URL", "NOT_SET")
+                _api_key_set = bool(os.environ.get("API_KEY") or os.environ.get("HF_TOKEN"))
+                print(f"[DEBUG] LLM call: base_url={_api_base} key_set={_api_key_set}", file=sys.stderr, flush=True)
                 try:
                     answer = generate_answer(obs.get("query", ""), chunk_texts)
-                except Exception:
+                    print(f"[DEBUG] LLM call succeeded", file=sys.stderr, flush=True)
+                except Exception as gen_exc:
+                    print(f"[DEBUG] LLM call failed ({type(gen_exc).__name__}): {gen_exc}", file=sys.stderr, flush=True)
                     answer = " ".join(chunk_texts)[:512]
 
                 try:
