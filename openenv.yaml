@@ -1,0 +1,44 @@
+name: rag-rl
+description: RL environment for evidence selection in retrieval-augmented generation
+version: "1.0"
+api:
+  reset: POST /reset
+  step: POST /step
+  state: GET /state
+tasks:
+  - name: easy
+    description: Redundancy-heavy evidence selection with a small budget
+    max_steps: 2
+    grader:
+      metric: total_reward
+      target: 0.75
+      components:
+        - answer_quality
+        - evidence_precision
+        - evidence_recall
+  - name: medium
+    description: Stale docs, contradictions, and adversarial summaries under moderate budget pressure
+    max_steps: 3
+    grader:
+      metric: total_reward
+      target: 0.65
+      components:
+        - answer_quality
+        - evidence_precision
+        - evidence_recall
+        - contradiction_penalty
+        - diversity_bonus
+  - name: hard
+    description: Tight-budget multi-hop evidence composition with partial-support distractors and cross-domain medical queries
+    max_steps: 4
+    grader:
+      metric: total_reward
+      target: 0.55
+      components:
+        - answer_quality
+        - evidence_precision
+        - evidence_recall
+        - contradiction_penalty
+        - diversity_bonus
+        - minimality_bonus
+        - budget_penalty

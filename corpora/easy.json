@@ -1,0 +1,726 @@
+{
+  "documents": [
+    {
+      "doc_id": 0,
+      "content": "TechNova Corp vacation policy: All full-time employees receive 15 paid vacation days per year. Employees with more than 5 years of continuous service are entitled to 20 paid vacation days annually.",
+      "source": "faq_vacation_policy.txt",
+      "doc_type": "faq",
+      "pattern": "golden",
+      "token_count": 40,
+      "topic_id": 0,
+      "support_type": "gold",
+      "fact_group": "vacation_entitlement",
+      "is_current": true
+    },
+    {
+      "doc_id": 1,
+      "content": "TechNova Corp grants 15 days of annual paid time off to full-time staff. After five years of employment, the vacation allowance rises to 20 days per year.",
+      "source": "faq_vacation_policy_v1.txt",
+      "doc_type": "faq",
+      "pattern": "redundant",
+      "token_count": 35,
+      "topic_id": 0,
+      "support_type": "support",
+      "fact_group": "vacation_entitlement",
+      "is_current": true
+    },
+    {
+      "doc_id": 2,
+      "content": "TechNova Corp sick leave policy: Full-time employees are entitled to 10 paid sick days per year. Sick leave may be used for the employee's own illness or to care for an immediate family member such as a spouse, child, or parent.",
+      "source": "faq_sick_leave.txt",
+      "doc_type": "faq",
+      "pattern": "golden",
+      "token_count": 53,
+      "topic_id": 1,
+      "support_type": "gold",
+      "fact_group": "sick_days_count",
+      "is_current": true
+    },
+    {
+      "doc_id": 3,
+      "content": "TechNova Corp provides 10 days of paid sick leave annually. Employees may use sick days both for their own health needs and to care for immediate family members.",
+      "source": "faq_sick_leave_v1.txt",
+      "doc_type": "faq",
+      "pattern": "redundant",
+      "token_count": 36,
+      "topic_id": 1,
+      "support_type": "support",
+      "fact_group": "sick_days_count",
+      "is_current": true
+    },
+    {
+      "doc_id": 4,
+      "content": "TechNova Corp remote work policy: Eligible employees may work from home up to 3 days per week. Remote work arrangements are subject to manager approval and depend on role requirements. Core collaboration hours (10am\u20133pm local time) must be observed regardless of work location.",
+      "source": "faq_remote_work.txt",
+      "doc_type": "faq",
+      "pattern": "golden",
+      "token_count": 55,
+      "topic_id": 2,
+      "support_type": "gold",
+      "fact_group": "remote_days_allowed",
+      "is_current": true
+    },
+    {
+      "doc_id": 5,
+      "content": "TechNova Corp allows employees to work remotely for up to 3 days each week. Manager approval is required, and employees must be available during core hours.",
+      "source": "faq_remote_work_v1.txt",
+      "doc_type": "faq",
+      "pattern": "redundant",
+      "token_count": 33,
+      "topic_id": 2,
+      "support_type": "support",
+      "fact_group": "remote_days_allowed",
+      "is_current": true
+    },
+    {
+      "doc_id": 6,
+      "content": "TechNova Corp health benefits: The company provides comprehensive medical, dental, and vision insurance at no premium cost to the employee. Dependent coverage is available at a subsidized rate. The medical plan includes mental health services, prescription drug coverage, and preventive care at $0 copay.",
+      "source": "faq_health_benefits.txt",
+      "doc_type": "faq",
+      "pattern": "golden",
+      "token_count": 57,
+      "topic_id": 3,
+      "support_type": "gold",
+      "fact_group": "health_coverage_terms",
+      "is_current": true
+    },
+    {
+      "doc_id": 7,
+      "content": "TechNova Corp offers full medical, dental, and vision insurance free of charge to employees. Family members can be added to the plan at a subsidized rate.",
+      "source": "faq_health_benefits_v1.txt",
+      "doc_type": "faq",
+      "pattern": "redundant",
+      "token_count": 33,
+      "topic_id": 3,
+      "support_type": "support",
+      "fact_group": "health_coverage_terms",
+      "is_current": true
+    },
+    {
+      "doc_id": 8,
+      "content": "TechNova Corp 401k policy: The company offers a 401k retirement plan with a generous employer match. TechNova matches 100% of employee contributions up to 6% of the employee's base salary. The employer match vests immediately \u2014 there is no waiting period.",
+      "source": "faq_401k_policy.txt",
+      "doc_type": "faq",
+      "pattern": "golden",
+      "token_count": 53,
+      "topic_id": 4,
+      "support_type": "gold",
+      "fact_group": "match_percentage",
+      "is_current": true
+    },
+    {
+      "doc_id": 9,
+      "content": "TechNova Corp's 401k plan includes a dollar-for-dollar match on contributions up to 6% of base salary. The match vests immediately with no cliff or schedule.",
+      "source": "faq_401k_policy_v1.txt",
+      "doc_type": "faq",
+      "pattern": "redundant",
+      "token_count": 32,
+      "topic_id": 4,
+      "support_type": "support",
+      "fact_group": "match_percentage",
+      "is_current": true
+    },
+    {
+      "doc_id": 10,
+      "content": "TechNova Corp parental leave policy: Primary caregivers (including birth parents and adoptive parents) receive 16 weeks of fully paid parental leave. Secondary caregivers receive 4 weeks of fully paid leave. Leave can be taken any time within the first year after birth or adoption.",
+      "source": "faq_parental_leave.txt",
+      "doc_type": "faq",
+      "pattern": "golden",
+      "token_count": 57,
+      "topic_id": 5,
+      "support_type": "gold",
+      "fact_group": "caregiver_weeks",
+      "is_current": true
+    },
+    {
+      "doc_id": 11,
+      "content": "TechNova Corp provides 16 weeks paid leave for primary caregivers and 4 weeks for secondary caregivers following birth or adoption.",
+      "source": "faq_parental_leave_v1.txt",
+      "doc_type": "faq",
+      "pattern": "redundant",
+      "token_count": 26,
+      "topic_id": 5,
+      "support_type": "support",
+      "fact_group": "caregiver_weeks",
+      "is_current": true
+    },
+    {
+      "doc_id": 12,
+      "content": "TechNova Corp performance review cycle: Annual performance reviews are conducted in Q4, specifically during October and November. Managers submit evaluations by November 30. Salary adjustments based on performance ratings take effect on January 1 of the following year.",
+      "source": "faq_performance_review.txt",
+      "doc_type": "faq",
+      "pattern": "golden",
+      "token_count": 49,
+      "topic_id": 6,
+      "support_type": "gold",
+      "fact_group": "review_timing",
+      "is_current": true
+    },
+    {
+      "doc_id": 13,
+      "content": "TechNova conducts its annual performance reviews in the fourth quarter, October through November, with pay increases effective January 1.",
+      "source": "faq_performance_review_v1.txt",
+      "doc_type": "faq",
+      "pattern": "redundant",
+      "token_count": 24,
+      "topic_id": 6,
+      "support_type": "support",
+      "fact_group": "review_timing",
+      "is_current": true
+    },
+    {
+      "doc_id": 14,
+      "content": "TechNova Corp learning and development budget: Each employee receives $2,000 per calendar year to spend on professional development. Eligible expenses include online courses, certification exams, technical books, and conference attendance. Unused budget does not roll over to the next year.",
+      "source": "faq_learning_budget.txt",
+      "doc_type": "faq",
+      "pattern": "golden",
+      "token_count": 52,
+      "topic_id": 7,
+      "support_type": "gold",
+      "fact_group": "development_amount",
+      "is_current": true
+    },
+    {
+      "doc_id": 15,
+      "content": "TechNova Corp allocates $2,000 annually per employee for learning and professional growth, covering courses, certs, books, and conferences.",
+      "source": "faq_learning_budget_v1.txt",
+      "doc_type": "faq",
+      "pattern": "redundant",
+      "token_count": 23,
+      "topic_id": 7,
+      "support_type": "support",
+      "fact_group": "development_amount",
+      "is_current": true
+    },
+    {
+      "doc_id": 16,
+      "content": "TechNova Corp equity compensation: Stock options are granted with a standard 4-year vesting schedule and a 1-year cliff. Employees who leave before one year receive no vested options. After the cliff, 25% of the grant vests, and the remaining 75% vests monthly over the next 36 months.",
+      "source": "faq_stock_options.txt",
+      "doc_type": "faq",
+      "pattern": "golden",
+      "token_count": 61,
+      "topic_id": 8,
+      "support_type": "gold",
+      "fact_group": "vesting_schedule",
+      "is_current": true
+    },
+    {
+      "doc_id": 17,
+      "content": "TechNova stock options vest on a 4-year schedule with a 1-year cliff. 25% of options vest on the 1-year anniversary, then monthly for 3 years.",
+      "source": "faq_stock_options_v1.txt",
+      "doc_type": "faq",
+      "pattern": "redundant",
+      "token_count": 32,
+      "topic_id": 8,
+      "support_type": "support",
+      "fact_group": "vesting_schedule",
+      "is_current": true
+    },
+    {
+      "doc_id": 18,
+      "content": "TechNova Corp annual bonus policy: Eligible employees can receive a performance bonus of up to 15% of their annual base salary. Bonus amounts are determined by individual performance ratings and overall company goal attainment. Bonuses are paid in February for the prior calendar year.",
+      "source": "faq_bonus_policy.txt",
+      "doc_type": "faq",
+      "pattern": "golden",
+      "token_count": 57,
+      "topic_id": 9,
+      "support_type": "gold",
+      "fact_group": "bonus_ceiling",
+      "is_current": true
+    },
+    {
+      "doc_id": 19,
+      "content": "TechNova Corp pays annual performance bonuses of up to 15% of base salary in February, based on individual and company-wide performance metrics.",
+      "source": "faq_bonus_policy_v1.txt",
+      "doc_type": "faq",
+      "pattern": "redundant",
+      "token_count": 28,
+      "topic_id": 9,
+      "support_type": "support",
+      "fact_group": "bonus_ceiling",
+      "is_current": true
+    },
+    {
+      "doc_id": 20,
+      "content": "TechNova Corp expense reimbursement policy: Employees must submit expense reports within 60 days of incurring the expense. Receipts are required for all purchases over $25. Any single expense over $500 requires prior written approval from the employee's direct manager before the purchase is made.",
+      "source": "faq_expense_reimbursement.txt",
+      "doc_type": "faq",
+      "pattern": "golden",
+      "token_count": 57,
+      "topic_id": 10,
+      "support_type": "gold",
+      "fact_group": "submission_window",
+      "is_current": true
+    },
+    {
+      "doc_id": 21,
+      "content": "TechNova Corp reimburses business expenses submitted within 60 days. Receipts are needed for amounts over $25, and expenses above $500 need advance manager approval.",
+      "source": "faq_expense_reimbursement_v1.txt",
+      "doc_type": "faq",
+      "pattern": "redundant",
+      "token_count": 31,
+      "topic_id": 10,
+      "support_type": "support",
+      "fact_group": "submission_window",
+      "is_current": true
+    },
+    {
+      "doc_id": 22,
+      "content": "TechNova Corp travel policy: For flights shorter than 6 hours, only economy class is reimbursable. Business class is approved for flights exceeding 6 hours. Hotel accommodations are reimbursed up to $200 per night. All travel must be booked through the company's approved travel portal.",
+      "source": "faq_travel_policy.txt",
+      "doc_type": "faq",
+      "pattern": "golden",
+      "token_count": 57,
+      "topic_id": 11,
+      "support_type": "gold",
+      "fact_group": "flight_class_rule",
+      "is_current": true
+    },
+    {
+      "doc_id": 23,
+      "content": "TechNova reimburses economy airfare for trips under 6 hours and business class for longer flights. Hotel reimbursement is capped at $200 per night.",
+      "source": "faq_travel_policy_v1.txt",
+      "doc_type": "faq",
+      "pattern": "redundant",
+      "token_count": 29,
+      "topic_id": 11,
+      "support_type": "support",
+      "fact_group": "flight_class_rule",
+      "is_current": true
+    },
+    {
+      "doc_id": 24,
+      "content": "TechNova Corp equipment policy: All new employees receive a company-issued MacBook Pro (14-inch or 16-inch based on role). In addition, each employee receives an $800 annual budget for peripherals such as monitors, keyboards, mice, and headsets. The peripheral budget is non-transferable and expires December 31 each year.",
+      "source": "faq_equipment_policy.txt",
+      "doc_type": "faq",
+      "pattern": "golden",
+      "token_count": 61,
+      "topic_id": 12,
+      "support_type": "gold",
+      "fact_group": "equipment_budget",
+      "is_current": true
+    },
+    {
+      "doc_id": 25,
+      "content": "TechNova Corp gives new hires a MacBook Pro and $800/year to spend on accessories and peripherals like monitors and keyboards.",
+      "source": "faq_equipment_policy_v1.txt",
+      "doc_type": "faq",
+      "pattern": "redundant",
+      "token_count": 26,
+      "topic_id": 12,
+      "support_type": "support",
+      "fact_group": "equipment_budget",
+      "is_current": true
+    },
+    {
+      "doc_id": 26,
+      "content": "TechNova Corp internet stipend: Full-time employees who work remotely at least one day per week are eligible for a $75 monthly home internet reimbursement. Employees submit a copy of their monthly internet bill for reimbursement through the expense portal.",
+      "source": "faq_internet_stipend.txt",
+      "doc_type": "faq",
+      "pattern": "golden",
+      "token_count": 50,
+      "topic_id": 13,
+      "support_type": "gold",
+      "fact_group": "stipend_amount",
+      "is_current": true
+    },
+    {
+      "doc_id": 27,
+      "content": "TechNova Corp reimburses $75 per month for home internet for employees who work remotely at least once a week.",
+      "source": "faq_internet_stipend_v1.txt",
+      "doc_type": "faq",
+      "pattern": "redundant",
+      "token_count": 24,
+      "topic_id": 13,
+      "support_type": "support",
+      "fact_group": "stipend_amount",
+      "is_current": true
+    },
+    {
+      "doc_id": 28,
+      "content": "TechNova Corp overtime policy: Non-exempt (hourly) employees are paid at 1.5 times their standard hourly rate for all hours worked beyond 40 in a workweek, in compliance with the Fair Labor Standards Act. Exempt (salaried) employees do not receive overtime pay but may receive compensatory time off at their manager's discretion.",
+      "source": "faq_overtime_policy.txt",
+      "doc_type": "faq",
+      "pattern": "golden",
+      "token_count": 66,
+      "topic_id": 14,
+      "support_type": "gold",
+      "fact_group": "overtime_rate",
+      "is_current": true
+    },
+    {
+      "doc_id": 29,
+      "content": "TechNova Corp compensates non-exempt employees at 1.5x their regular pay for overtime hours (over 40/week). Exempt employees get comp time instead.",
+      "source": "faq_overtime_policy_v1.txt",
+      "doc_type": "faq",
+      "pattern": "redundant",
+      "token_count": 27,
+      "topic_id": 14,
+      "support_type": "support",
+      "fact_group": "overtime_rate",
+      "is_current": true
+    },
+    {
+      "doc_id": 30,
+      "content": "TechNova Corp software engineer base salary range: Software engineers at TechNova Corp earn between $120,000 and $160,000 per year depending on level and experience. The exact salary is determined during the offer negotiation and annual review process.",
+      "source": "faq_total_compensation.txt",
+      "doc_type": "faq",
+      "pattern": "golden",
+      "token_count": 48,
+      "topic_id": 15,
+      "support_type": "gold",
+      "fact_group": "salary_range",
+      "is_current": true
+    },
+    {
+      "doc_id": 31,
+      "content": "TechNova Corp engineer salaries range from $120k to $160k annually, varying by engineering level (L3 through L7) and years of experience.",
+      "source": "faq_total_compensation_v1.txt",
+      "doc_type": "faq",
+      "pattern": "redundant",
+      "token_count": 27,
+      "topic_id": 15,
+      "support_type": "support",
+      "fact_group": "salary_range",
+      "is_current": true
+    },
+    {
+      "doc_id": 32,
+      "content": "TechNova Corp vacation entitlement: Full-time employees receive 15 paid vacation days per year. Employees with over 5 years of service receive 20 vacation days annually.",
+      "source": "faq_total_leave.txt",
+      "doc_type": "faq",
+      "pattern": "golden",
+      "token_count": 32,
+      "topic_id": 16,
+      "support_type": "gold",
+      "fact_group": "vacation_days",
+      "is_current": true
+    },
+    {
+      "doc_id": 33,
+      "content": "TechNova Corp grants 15 annual vacation days to full-time employees, rising to 20 days for those with more than 5 years of service.",
+      "source": "faq_total_leave_v1.txt",
+      "doc_type": "faq",
+      "pattern": "redundant",
+      "token_count": 29,
+      "topic_id": 16,
+      "support_type": "support",
+      "fact_group": "vacation_days",
+      "is_current": true
+    },
+    {
+      "doc_id": 34,
+      "content": "TechNova Corp backend architecture: The core product platform is built on Python using the FastAPI framework. Services are containerized with Docker and orchestrated via Kubernetes. The backend exposes RESTful and gRPC APIs.",
+      "source": "faq_software_stack.txt",
+      "doc_type": "faq",
+      "pattern": "golden",
+      "token_count": 41,
+      "topic_id": 17,
+      "support_type": "gold",
+      "fact_group": "backend_stack",
+      "is_current": true
+    },
+    {
+      "doc_id": 35,
+      "content": "TechNova Corp's backend is Python-based, using FastAPI for the web framework. Services run in Docker containers managed by Kubernetes.",
+      "source": "faq_software_stack_v1.txt",
+      "doc_type": "faq",
+      "pattern": "redundant",
+      "token_count": 24,
+      "topic_id": 17,
+      "support_type": "support",
+      "fact_group": "backend_stack",
+      "is_current": true
+    },
+    {
+      "doc_id": 36,
+      "content": "TechNova Corp primary infrastructure: All primary production workloads run in AWS us-east-1 (Northern Virginia). The region was chosen for its low latency to the East Coast customer base and proximity to financial industry clients.",
+      "source": "faq_data_infrastructure.txt",
+      "doc_type": "faq",
+      "pattern": "golden",
+      "token_count": 44,
+      "topic_id": 18,
+      "support_type": "gold",
+      "fact_group": "primary_dc",
+      "is_current": true
+    },
+    {
+      "doc_id": 37,
+      "content": "TechNova Corp primary data center: AWS us-east-1 in Northern Virginia. This region hosts all production databases, APIs, and compute workloads.",
+      "source": "faq_data_infrastructure_v1.txt",
+      "doc_type": "faq",
+      "pattern": "redundant",
+      "token_count": 26,
+      "topic_id": 18,
+      "support_type": "support",
+      "fact_group": "primary_dc",
+      "is_current": true
+    },
+    {
+      "doc_id": 38,
+      "content": "TechNova Corp API throughput: The platform's API gateway is designed to handle up to 50,000 requests per second under peak load. Auto-scaling triggers at 70% capacity to ensure headroom for traffic spikes.",
+      "source": "faq_sla_metrics.txt",
+      "doc_type": "faq",
+      "pattern": "golden",
+      "token_count": 41,
+      "topic_id": 19,
+      "support_type": "gold",
+      "fact_group": "api_throughput",
+      "is_current": true
+    },
+    {
+      "doc_id": 39,
+      "content": "TechNova Corp's API layer supports 50,000 requests per second, with autoscaling engaged at 70% capacity to manage traffic bursts.",
+      "source": "faq_sla_metrics_v1.txt",
+      "doc_type": "faq",
+      "pattern": "redundant",
+      "token_count": 24,
+      "topic_id": 19,
+      "support_type": "support",
+      "fact_group": "api_throughput",
+      "is_current": true
+    },
+    {
+      "doc_id": 40,
+      "content": "TechNova Corp reported record Q3 revenue of $2.4 billion, up 18% year-over-year, driven by its cloud services division and international expansion into Southeast Asia.",
+      "source": "news_vacation_policy.txt",
+      "doc_type": "news",
+      "pattern": "noise",
+      "token_count": 31,
+      "topic_id": 0,
+      "support_type": "noise",
+      "fact_group": "noise",
+      "is_current": true
+    },
+    {
+      "doc_id": 41,
+      "content": "TechNova Corp's engineering team adopted a new CI/CD pipeline using GitHub Actions and ArgoCD, reducing deployment time from 45 minutes to under 8 minutes.",
+      "source": "news_sick_leave.txt",
+      "doc_type": "news",
+      "pattern": "noise",
+      "token_count": 31,
+      "topic_id": 1,
+      "support_type": "noise",
+      "fact_group": "noise",
+      "is_current": true
+    },
+    {
+      "doc_id": 42,
+      "content": "TechNova Corp's annual hackathon attracted over 500 participants who built 87 projects over 48 hours, with the winning team creating an AI-powered accessibility tool.",
+      "source": "news_remote_work.txt",
+      "doc_type": "news",
+      "pattern": "noise",
+      "token_count": 31,
+      "topic_id": 2,
+      "support_type": "noise",
+      "fact_group": "noise",
+      "is_current": true
+    },
+    {
+      "doc_id": 43,
+      "content": "TechNova Corp's data platform processes over 5 petabytes of data daily using Apache Kafka and Apache Spark running on a Kubernetes cluster across 3 availability zones.",
+      "source": "news_health_benefits.txt",
+      "doc_type": "news",
+      "pattern": "noise",
+      "token_count": 33,
+      "topic_id": 3,
+      "support_type": "noise",
+      "fact_group": "noise",
+      "is_current": true
+    },
+    {
+      "doc_id": 44,
+      "content": "TechNova Corp unveiled its new open-source observability framework, which has already received 12,000 GitHub stars and contributions from 340 external developers.",
+      "source": "news_401k_policy.txt",
+      "doc_type": "news",
+      "pattern": "noise",
+      "token_count": 27,
+      "topic_id": 4,
+      "support_type": "noise",
+      "fact_group": "noise",
+      "is_current": true
+    },
+    {
+      "doc_id": 45,
+      "content": "TechNova Corp's machine learning platform supports training models with up to 70 billion parameters using distributed training across 512 H100 GPUs.",
+      "source": "news_parental_leave.txt",
+      "doc_type": "news",
+      "pattern": "noise",
+      "token_count": 27,
+      "topic_id": 5,
+      "support_type": "noise",
+      "fact_group": "noise",
+      "is_current": true
+    },
+    {
+      "doc_id": 46,
+      "content": "TechNova Corp signed a strategic partnership with three Fortune 500 companies to integrate its API platform, projected to add $180 million in annual recurring revenue.",
+      "source": "news_performance_review.txt",
+      "doc_type": "news",
+      "pattern": "noise",
+      "token_count": 32,
+      "topic_id": 6,
+      "support_type": "noise",
+      "fact_group": "noise",
+      "is_current": true
+    },
+    {
+      "doc_id": 47,
+      "content": "TechNova Corp's global workforce grew to 12,500 employees across 28 countries following its acquisition of DataStream Inc. in Q2.",
+      "source": "news_learning_budget.txt",
+      "doc_type": "news",
+      "pattern": "noise",
+      "token_count": 24,
+      "topic_id": 7,
+      "support_type": "noise",
+      "fact_group": "noise",
+      "is_current": true
+    },
+    {
+      "doc_id": 48,
+      "content": "TechNova Corp's infrastructure team reduced cloud costs by 34% using spot instances and autoscaling, saving approximately $8 million annually.",
+      "source": "news_stock_options.txt",
+      "doc_type": "news",
+      "pattern": "noise",
+      "token_count": 24,
+      "topic_id": 8,
+      "support_type": "noise",
+      "fact_group": "noise",
+      "is_current": true
+    },
+    {
+      "doc_id": 49,
+      "content": "TechNova Corp's zero-trust security architecture achieved SOC 2 Type II certification and ISO 27001 compliance, enabling expansion into regulated industries.",
+      "source": "news_bonus_policy.txt",
+      "doc_type": "news",
+      "pattern": "noise",
+      "token_count": 26,
+      "topic_id": 9,
+      "support_type": "noise",
+      "fact_group": "noise",
+      "is_current": true
+    }
+  ],
+  "queries": [
+    {
+      "query_id": 0,
+      "query": "How many vacation days do TechNova Corp employees receive annually?",
+      "reference_answer": "TechNova Corp employees receive 15 days of paid vacation annually, increasing to 20 days after 5 years of service.",
+      "required_fact_groups": [
+        "vacation_entitlement"
+      ]
+    },
+    {
+      "query_id": 1,
+      "query": "What is TechNova Corp's paid sick leave policy?",
+      "reference_answer": "TechNova Corp provides 10 days of paid sick leave per year, which can be used for personal illness or to care for an immediate family member.",
+      "required_fact_groups": [
+        "sick_days_count"
+      ]
+    },
+    {
+      "query_id": 2,
+      "query": "How many days per week can TechNova Corp employees work remotely?",
+      "reference_answer": "TechNova Corp employees can work remotely up to 3 days per week, subject to manager approval and role requirements.",
+      "required_fact_groups": [
+        "remote_days_allowed"
+      ]
+    },
+    {
+      "query_id": 3,
+      "query": "What health insurance benefits does TechNova Corp provide?",
+      "reference_answer": "TechNova Corp provides comprehensive health coverage including medical, dental, and vision insurance with zero premium cost for the employee.",
+      "required_fact_groups": [
+        "health_coverage_terms"
+      ]
+    },
+    {
+      "query_id": 4,
+      "query": "What is TechNova Corp's 401k matching policy?",
+      "reference_answer": "TechNova Corp matches 100% of employee 401k contributions up to 6% of salary, with immediate vesting.",
+      "required_fact_groups": [
+        "match_percentage"
+      ]
+    },
+    {
+      "query_id": 5,
+      "query": "How much paid parental leave does TechNova Corp offer?",
+      "reference_answer": "TechNova Corp offers 16 weeks of paid parental leave for the primary caregiver and 4 weeks for the secondary caregiver.",
+      "required_fact_groups": [
+        "caregiver_weeks"
+      ]
+    },
+    {
+      "query_id": 6,
+      "query": "When does TechNova Corp conduct performance reviews?",
+      "reference_answer": "TechNova Corp conducts annual performance reviews in Q4 (October\u2013November), with salary adjustments taking effect in January.",
+      "required_fact_groups": [
+        "review_timing"
+      ]
+    },
+    {
+      "query_id": 7,
+      "query": "What is TechNova Corp's professional development budget for employees?",
+      "reference_answer": "TechNova Corp provides $2,000 per year per employee for professional development, covering courses, certifications, books, and conferences.",
+      "required_fact_groups": [
+        "development_amount"
+      ]
+    },
+    {
+      "query_id": 8,
+      "query": "How do TechNova Corp stock options vest?",
+      "reference_answer": "TechNova Corp stock options vest over 4 years with a 1-year cliff, meaning 25% vests after year one and the remainder vests monthly over the following 3 years.",
+      "required_fact_groups": [
+        "vesting_schedule"
+      ]
+    },
+    {
+      "query_id": 9,
+      "query": "What is TechNova Corp's annual bonus structure?",
+      "reference_answer": "TechNova Corp employees are eligible for an annual performance bonus of up to 15% of base salary, paid in February based on individual and company performance.",
+      "required_fact_groups": [
+        "bonus_ceiling"
+      ]
+    },
+    {
+      "query_id": 10,
+      "query": "What is TechNova Corp's expense reimbursement process?",
+      "reference_answer": "TechNova Corp requires expense reports to be submitted within 60 days. Expenses over $500 require manager pre-approval.",
+      "required_fact_groups": [
+        "submission_window"
+      ]
+    },
+    {
+      "query_id": 11,
+      "query": "What class of air travel does TechNova Corp reimburse for business trips?",
+      "reference_answer": "TechNova Corp reimburses economy class for flights under 6 hours and business class for flights over 6 hours. Hotel stays are reimbursed up to $200 per night.",
+      "required_fact_groups": [
+        "flight_class_rule"
+      ]
+    },
+    {
+      "query_id": 12,
+      "query": "What equipment does TechNova Corp provide to new employees?",
+      "reference_answer": "TechNova Corp provides a MacBook Pro to new employees, plus an $800 annual budget for peripherals and accessories.",
+      "required_fact_groups": [
+        "equipment_budget"
+      ]
+    },
+    {
+      "query_id": 13,
+      "query": "Does TechNova Corp provide a home internet stipend for remote workers?",
+      "reference_answer": "Yes, TechNova Corp provides a $75 per month home internet stipend for all full-time employees who work remotely at least 1 day per week.",
+      "required_fact_groups": [
+        "stipend_amount"
+      ]
+    },
+    {
+      "query_id": 14,
+      "query": "How are overtime hours compensated at TechNova Corp?",
+      "reference_answer": "TechNova Corp pays non-exempt employees 1.5x their hourly rate for hours worked beyond 40 per week. Exempt employees receive compensatory time off.",
+      "required_fact_groups": [
+        "overtime_rate"
+      ]
+    }
+  ]
+}

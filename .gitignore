@@ -1,0 +1,20 @@
+# Mac system files
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+.eggs/
+
+# Virtual environments
+.env
+.venv/
+venv/
+env/
+
+# Claude Code internals (not part of the submission)
+.agents/
+.claude/
