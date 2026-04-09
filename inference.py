@@ -63,10 +63,13 @@ def _semantic_similarity(reference: str, generated: str) -> float:
 
 
 def _client() -> OpenAI:
-    """OpenAI-compatible client using module-level API_KEY and API_BASE_URL.
-    Matches the sample inference.py pattern from OpenEnv exactly.
+    """OpenAI-compatible client — reads env vars at call time (not import time).
+    Uses os.environ so the validator-injected API_KEY is always picked up.
     """
-    return OpenAI(base_url=API_BASE_URL, api_key=API_KEY)
+    return OpenAI(
+        base_url=os.environ["API_BASE_URL"],
+        api_key=os.environ["API_KEY"],
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -91,7 +94,7 @@ def generate_answer(query: str, chunk_contents: List[str]) -> str:
     )
 
     resp = _client().chat.completions.create(
-        model=MODEL_NAME,
+        model=os.environ.get("MODEL_NAME") or MODEL_NAME,
         messages=[{"role": "user", "content": prompt}],
         max_tokens=256,
         temperature=0.0,
@@ -120,7 +123,7 @@ def judge_answer(query: str, reference: str, generated: str) -> float:
 
     try:
         resp = _client().chat.completions.create(
-            model=MODEL_NAME,
+            model=os.environ.get("MODEL_NAME") or MODEL_NAME,
             messages=[{"role": "user", "content": prompt}],
             max_tokens=10,
             temperature=0.0,
