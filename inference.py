@@ -32,10 +32,9 @@ from sentence_transformers import SentenceTransformer
 # LLM configuration (env vars only — no hardcoded keys)
 # ---------------------------------------------------------------------------
 
-API_BASE_URL     = os.getenv("API_BASE_URL", "https://router.huggingface.co/v1")
-MODEL_NAME       = os.getenv("MODEL_NAME",   "Qwen/Qwen2.5-72B-Instruct")
-HF_TOKEN         = os.getenv("HF_TOKEN")        # no default — must be supplied at runtime
-API_KEY          = os.getenv("API_KEY") or HF_TOKEN  # OpenEnv validator injects API_KEY
+API_BASE_URL     = os.getenv("API_BASE_URL") or "https://router.huggingface.co/v1"
+MODEL_NAME       = os.getenv("MODEL_NAME")   or "Qwen/Qwen2.5-72B-Instruct"
+API_KEY          = os.getenv("HF_TOKEN")     or os.getenv("API_KEY")   # HF_TOKEN first — matches sample
 LOCAL_IMAGE_NAME = os.getenv("LOCAL_IMAGE_NAME") # optional — only used with from_docker_image()
 
 BENCHMARK = "rag-rl"
@@ -64,12 +63,10 @@ def _semantic_similarity(reference: str, generated: str) -> float:
 
 
 def _client() -> OpenAI:
-    """Create OpenAI-compatible client using env vars read at call time.
-    Reads API_BASE_URL and API_KEY exactly as the OpenEnv validator injects them.
+    """OpenAI-compatible client using module-level API_KEY and API_BASE_URL.
+    Matches the sample inference.py pattern from OpenEnv exactly.
     """
-    base_url = os.environ.get("API_BASE_URL", "https://router.huggingface.co/v1")
-    api_key  = os.environ.get("API_KEY") or os.environ.get("HF_TOKEN")
-    return OpenAI(base_url=base_url, api_key=api_key)
+    return OpenAI(base_url=API_BASE_URL, api_key=API_KEY)
 
 
 # ---------------------------------------------------------------------------
