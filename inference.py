@@ -21,6 +21,7 @@ import asyncio
 import os
 import re
 import sys
+import time
 from typing import List, Optional
 
 import numpy as np
@@ -372,12 +373,25 @@ async def main() -> None:
     scheme = "http" if args.host in ("localhost", "127.0.0.1") else "https"
     base_url = f"{scheme}://{args.host}" if args.port == 443 else f"{scheme}://{args.host}:{args.port}"
 
-    # Health check before starting
-    try:
-        r = requests.get(f"{base_url}/health", timeout=10)
-        r.raise_for_status()
-    except Exception as e:
-        print(f"[DEBUG] Cannot reach server at {base_url}: {e}", file=sys.stderr, flush=True)
+    # Health check — retry up to 15 times (60 s total) to handle cold-start Docker latency.
+    # The validator may launch inference.py immediately after starting the container, before
+    # the server has finished loading the corpus and building the vector index.
+    _health_ok = False
+    for _attempt in range(15):
+        try:
+            r = requests.get(f"{base_url}/health", timeout=10)
+            r.raise_for_status()
+            _health_ok = True
+            break
+        except Exception as _e:
+            print(
+                f"[DEBUG] Health check attempt {_attempt + 1}/15 failed ({_e}); retrying in 4 s …",
+                file=sys.stderr, flush=True,
+            )
+            time.sleep(4)
+
+    if not _health_ok:
+        print(f"[DEBUG] Cannot reach server at {base_url} after 15 attempts.", file=sys.stderr, flush=True)
         # Still emit required log lines so judges see output
         log_start(task=args.task, env=BENCHMARK, model=MODEL_NAME)
         log_end(success=False, steps=0, score=0.0, rewards=[])
