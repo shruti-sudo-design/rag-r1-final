@@ -728,6 +728,64 @@ def health():
     return {"status": "ok", "active_task": _active_task, "loaded_tasks": list(_envs.keys())}
 
 
+@app.get("/tasks")
+def get_tasks():
+    """Return the list of tasks with grader metadata (required by OpenEnv validator)."""
+    return {
+        "tasks": [
+            {
+                "id": "task_easy",
+                "name": "easy",
+                "difficulty": "easy",
+                "description": "Redundancy-heavy evidence selection with a small budget",
+                "max_steps": 2,
+                "has_grader": True,
+                "reward_range": [0.0, 1.0],
+            },
+            {
+                "id": "task_medium",
+                "name": "medium",
+                "difficulty": "medium",
+                "description": "Stale docs, contradictions, and adversarial summaries under moderate budget pressure",
+                "max_steps": 3,
+                "has_grader": True,
+                "reward_range": [0.0, 1.0],
+            },
+            {
+                "id": "task_hard",
+                "name": "hard",
+                "difficulty": "hard",
+                "description": "Tight-budget multi-hop evidence composition with partial-support distractors and cross-domain medical queries",
+                "max_steps": 4,
+                "has_grader": True,
+                "reward_range": [0.0, 1.0],
+            },
+        ]
+    }
+
+
+@app.get("/grader")
+def grader():
+    """Grader endpoint — returns scoring metadata for all tasks (required by OpenEnv validator)."""
+    env = _envs.get(_active_task)
+    last_reward = None
+    if env is not None:
+        try:
+            state = env.get_state()
+            last_reward = state.get("last_reward")
+        except Exception:
+            pass
+    return {
+        "grader": "total_reward",
+        "tasks": {
+            "easy":   {"metric": "total_reward", "target": 0.75, "has_grader": True},
+            "medium": {"metric": "total_reward", "target": 0.65, "has_grader": True},
+            "hard":   {"metric": "total_reward", "target": 0.55, "has_grader": True},
+        },
+        "last_reward": last_reward,
+    }
+
+
 @app.get("/openenv.yaml", response_class=PlainTextResponse, include_in_schema=False)
 def serve_openenv_yaml():
     """Serve the openenv.yaml spec file."""

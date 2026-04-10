@@ -6,9 +6,13 @@ api:
   step: POST /step
   state: GET /state
 tasks:
-  - name: easy
+  - id: task_easy
+    name: easy
     description: Redundancy-heavy evidence selection with a small budget
+    difficulty: easy
     max_steps: 2
+    has_grader: true
+    reward_range: [0.0, 1.0]
     grader:
       metric: total_reward
       target: 0.75
@@ -16,9 +20,13 @@ tasks:
         - answer_quality
         - evidence_precision
         - evidence_recall
-  - name: medium
+  - id: task_medium
+    name: medium
     description: Stale docs, contradictions, and adversarial summaries under moderate budget pressure
+    difficulty: medium
     max_steps: 3
+    has_grader: true
+    reward_range: [0.0, 1.0]
     grader:
       metric: total_reward
       target: 0.65
@@ -28,9 +36,13 @@ tasks:
         - evidence_recall
         - contradiction_penalty
         - diversity_bonus
-  - name: hard
+  - id: task_hard
+    name: hard
     description: Tight-budget multi-hop evidence composition with partial-support distractors and cross-domain medical queries
+    difficulty: hard
     max_steps: 4
+    has_grader: true
+    reward_range: [0.0, 1.0]
     grader:
       metric: total_reward
       target: 0.55
@@ -42,3 +54,9 @@ tasks:
         - diversity_bonus
         - minimality_bonus
         - budget_penalty
+endpoints:
+  reset: POST /reset
+  step: POST /step
+  state: GET /state
+  tasks: GET /tasks
+  grader: GET /grader
