@@ -55,4 +55,5 @@ endpoints:
   reset: POST /reset
   step: POST /step
   state: GET /state
+  tasks: GET /tasks
   grader: GET /grader
