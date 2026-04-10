@@ -9,9 +9,13 @@ tasks:
     description: Redundancy-heavy evidence selection with a small budget
     max_steps: 2
     grader:
-      type: scalar
-      min: 0.0
-      max: 1.0
+      metric: total_reward
+      target: 0.75
+      reward_range: [0.0, 1.0]
+      components:
+        - answer_quality
+        - evidence_precision
+        - evidence_recall
 
   - id: medium
     name: medium
@@ -19,9 +23,15 @@ tasks:
     description: Stale docs, contradictions, and adversarial summaries under moderate budget pressure
     max_steps: 3
     grader:
-      type: scalar
-      min: 0.0
-      max: 1.0
+      metric: total_reward
+      target: 0.65
+      reward_range: [0.0, 1.0]
+      components:
+        - answer_quality
+        - evidence_precision
+        - evidence_recall
+        - contradiction_penalty
+        - diversity_bonus
 
   - id: hard
     name: hard
@@ -29,9 +39,17 @@ tasks:
     description: Tight-budget multi-hop evidence composition with partial-support distractors
     max_steps: 4
     grader:
-      type: scalar
-      min: 0.0
-      max: 1.0
+      metric: total_reward
+      target: 0.55
+      reward_range: [0.0, 1.0]
+      components:
+        - answer_quality
+        - evidence_precision
+        - evidence_recall
+        - contradiction_penalty
+        - diversity_bonus
+        - minimality_bonus
+        - budget_penalty
 
 endpoints:
   reset: POST /reset
