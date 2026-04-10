@@ -728,62 +728,70 @@ def health():
     return {"status": "ok", "active_task": _active_task, "loaded_tasks": list(_envs.keys())}
 
 
+_TASKS_LIST = [
+    {
+        "id": "task_easy",
+        "name": "easy",
+        "difficulty": "easy",
+        "description": "Redundancy-heavy evidence selection with a small budget",
+        "max_steps": 2,
+        "has_grader": True,
+        "reward_range": [0.0, 1.0],
+    },
+    {
+        "id": "task_medium",
+        "name": "medium",
+        "difficulty": "medium",
+        "description": "Stale docs, contradictions, and adversarial summaries under moderate budget pressure",
+        "max_steps": 3,
+        "has_grader": True,
+        "reward_range": [0.0, 1.0],
+    },
+    {
+        "id": "task_hard",
+        "name": "hard",
+        "difficulty": "hard",
+        "description": "Tight-budget multi-hop evidence composition with partial-support distractors and cross-domain medical queries",
+        "max_steps": 4,
+        "has_grader": True,
+        "reward_range": [0.0, 1.0],
+    },
+]
+
+
 @app.get("/tasks")
 def get_tasks():
-    """Return the list of tasks with grader metadata (required by OpenEnv validator)."""
-    return {
-        "tasks": [
-            {
-                "id": "task_easy",
-                "name": "easy",
-                "difficulty": "easy",
-                "description": "Redundancy-heavy evidence selection with a small budget",
-                "max_steps": 2,
-                "has_grader": True,
-                "reward_range": [0.0, 1.0],
-            },
-            {
-                "id": "task_medium",
-                "name": "medium",
-                "difficulty": "medium",
-                "description": "Stale docs, contradictions, and adversarial summaries under moderate budget pressure",
-                "max_steps": 3,
-                "has_grader": True,
-                "reward_range": [0.0, 1.0],
-            },
-            {
-                "id": "task_hard",
-                "name": "hard",
-                "difficulty": "hard",
-                "description": "Tight-budget multi-hop evidence composition with partial-support distractors and cross-domain medical queries",
-                "max_steps": 4,
-                "has_grader": True,
-                "reward_range": [0.0, 1.0],
-            },
-        ]
-    }
+    """Return flat list of tasks with has_grader metadata (required by OpenEnv validator)."""
+    return _TASKS_LIST
 
 
 @app.get("/grader")
-def grader():
-    """Grader endpoint — returns scoring metadata for all tasks (required by OpenEnv validator)."""
-    env = _envs.get(_active_task)
-    last_reward = None
-    if env is not None:
-        try:
-            state = env.get_state()
-            last_reward = state.get("last_reward")
-        except Exception:
-            pass
-    return {
-        "grader": "total_reward",
-        "tasks": {
-            "easy":   {"metric": "total_reward", "target": 0.75, "has_grader": True},
-            "medium": {"metric": "total_reward", "target": 0.65, "has_grader": True},
-            "hard":   {"metric": "total_reward", "target": 0.55, "has_grader": True},
-        },
-        "last_reward": last_reward,
+def grader(task: Optional[str] = None):
+    """Grader endpoint — returns scoring info for a task (required by OpenEnv validator)."""
+    task_configs = {
+        "easy":   {"id": "task_easy",   "name": "easy",   "has_grader": True, "metric": "total_reward", "target": 0.75, "reward_range": [0.0, 1.0]},
+        "medium": {"id": "task_medium", "name": "medium", "has_grader": True, "metric": "total_reward", "target": 0.65, "reward_range": [0.0, 1.0]},
+        "hard":   {"id": "task_hard",   "name": "hard",   "has_grader": True, "metric": "total_reward", "target": 0.55, "reward_range": [0.0, 1.0]},
     }
+    if task and task in task_configs:
+        return task_configs[task]
+    return {
+        "has_grader": True,
+        "tasks": list(task_configs.values()),
+    }
+
+
+@app.get("/grader/{task_name}")
+def grader_for_task(task_name: str):
+    """Task-specific grader endpoint (required by OpenEnv validator)."""
+    task_configs = {
+        "easy":   {"id": "task_easy",   "name": "easy",   "has_grader": True, "metric": "total_reward", "target": 0.75, "reward_range": [0.0, 1.0]},
+        "medium": {"id": "task_medium", "name": "medium", "has_grader": True, "metric": "total_reward", "target": 0.65, "reward_range": [0.0, 1.0]},
+        "hard":   {"id": "task_hard",   "name": "hard",   "has_grader": True, "metric": "total_reward", "target": 0.55, "reward_range": [0.0, 1.0]},
+    }
+    if task_name not in task_configs:
+        raise HTTPException(status_code=404, detail=f"Unknown task '{task_name}'")
+    return task_configs[task_name]
 
 
 @app.get("/openenv.yaml", response_class=PlainTextResponse, include_in_schema=False)
