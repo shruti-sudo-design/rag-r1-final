@@ -3,27 +3,30 @@ description: RL environment for evidence selection in retrieval-augmented genera
 version: "1.0"
 
 tasks:
-  easy:
-    description: Redundancy-heavy evidence selection with a small budget
+  - id: easy
+    name: easy
     difficulty: easy
+    description: Redundancy-heavy evidence selection with a small budget
     max_steps: 2
     grader:
       type: scalar
       min: 0.0
       max: 1.0
 
-  medium:
-    description: Stale docs, contradictions, and adversarial summaries under moderate budget pressure
+  - id: medium
+    name: medium
     difficulty: medium
+    description: Stale docs, contradictions, and adversarial summaries under moderate budget pressure
     max_steps: 3
     grader:
       type: scalar
       min: 0.0
       max: 1.0
 
-  hard:
-    description: Tight-budget multi-hop evidence composition with partial-support distractors
+  - id: hard
+    name: hard
     difficulty: hard
+    description: Tight-budget multi-hop evidence composition with partial-support distractors
     max_steps: 4
     grader:
       type: scalar
