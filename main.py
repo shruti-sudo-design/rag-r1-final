@@ -728,28 +728,95 @@ def health():
     return {"status": "ok", "active_task": _active_task, "loaded_tasks": list(_envs.keys())}
 
 
-# IDs match openenv.yaml exactly (id: easy / medium / hard)
-_TASK_GRADERS = {
-    "easy":   {"id": "easy",   "name": "easy",   "difficulty": "easy",   "has_grader": True, "metric": "total_reward", "target": 0.75, "reward_range": [0.0, 1.0], "max_steps": 2},
-    "medium": {"id": "medium", "name": "medium", "difficulty": "medium", "has_grader": True, "metric": "total_reward", "target": 0.65, "reward_range": [0.0, 1.0], "max_steps": 3},
-    "hard":   {"id": "hard",   "name": "hard",   "difficulty": "hard",   "has_grader": True, "metric": "total_reward", "target": 0.55, "reward_range": [0.0, 1.0], "max_steps": 4},
+# Task + grader metadata — must stay in sync with openenv.yaml. Many validators count
+# "tasks with graders" via a nested `grader` object on each task (not only `has_grader`).
+_TASK_SPECS: Dict[str, dict] = {
+    "easy": {
+        "description": "Redundancy-heavy evidence selection with a small budget",
+        "max_steps": 2,
+        "grader": {
+            "metric": "total_reward",
+            "target": 0.75,
+            "reward_range": [0.0, 1.0],
+            "components": [
+                "answer_quality",
+                "evidence_precision",
+                "evidence_recall",
+            ],
+        },
+    },
+    "medium": {
+        "description": (
+            "Stale docs, contradictions, and adversarial summaries under moderate budget pressure"
+        ),
+        "max_steps": 3,
+        "grader": {
+            "metric": "total_reward",
+            "target": 0.65,
+            "reward_range": [0.0, 1.0],
+            "components": [
+                "answer_quality",
+                "evidence_precision",
+                "evidence_recall",
+                "contradiction_penalty",
+                "diversity_bonus",
+            ],
+        },
+    },
+    "hard": {
+        "description": "Tight-budget multi-hop evidence composition with partial-support distractors",
+        "max_steps": 4,
+        "grader": {
+            "metric": "total_reward",
+            "target": 0.55,
+            "reward_range": [0.0, 1.0],
+            "components": [
+                "answer_quality",
+                "evidence_precision",
+                "evidence_recall",
+                "contradiction_penalty",
+                "diversity_bonus",
+                "minimality_bonus",
+                "budget_penalty",
+            ],
+        },
+    },
 }
 
-_TASKS_LIST = list(_TASK_GRADERS.values())
+
+def _task_record(task_id: str) -> dict:
+    spec = _TASK_SPECS[task_id]
+    g = spec["grader"]
+    return {
+        "id": task_id,
+        "name": task_id,
+        "difficulty": task_id,
+        "description": spec["description"],
+        "max_steps": spec["max_steps"],
+        "has_grader": True,
+        "grader": dict(g),
+        # Flat copies for any client that read metric/target at the top level
+        "metric": g["metric"],
+        "target": g["target"],
+        "reward_range": list(g["reward_range"]),
+    }
+
+
+_TASK_GRADERS = {tid: _task_record(tid) for tid in _TASK_SPECS}
+_TASKS_LIST = [_TASK_GRADERS[k] for k in ("easy", "medium", "hard")]
 
 
 @app.get("/tasks")
 def get_tasks():
-    """Return flat list of tasks — each entry has has_grader=True (required by OpenEnv validator)."""
+    """List tasks; each entry includes a nested `grader` matching openenv.yaml."""
     return _TASKS_LIST
 
 
 @app.get("/grader")
 def grader(task: Optional[str] = None):
-    """Return grader info. No param → list of all graders. ?task=easy → single grader."""
+    """Return grader info. No param → list of all task records with graders. ?task=easy → one task."""
     if task and task in _TASK_GRADERS:
         return _TASK_GRADERS[task]
-    # Return flat list so validator can enumerate tasks_with_graders
     return _TASKS_LIST
 
 
