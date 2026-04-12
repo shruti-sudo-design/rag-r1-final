@@ -45,6 +45,11 @@ SUCCESS_SCORE_THRESHOLD = 0.5  # episode scores >= this count as success
 _FALLBACK_MODEL: Optional[SentenceTransformer] = None
 
 
+def _clamp_final_score(score: float) -> float:
+    """Keep final validator-facing scores away from exact 0.0 / 1.0 edges."""
+    return round(max(0.01, min(0.99, float(score))), 4)
+
+
 def _get_fallback_model() -> SentenceTransformer:
     global _FALLBACK_MODEL
     if _FALLBACK_MODEL is None:
@@ -165,6 +170,7 @@ def log_step(step: int, action: str, reward: float, done: bool, error: Optional[
 
 
 def log_end(success: bool, steps: int, score: float, rewards: List[float]) -> None:
+    score = _clamp_final_score(score)
     rewards_str = ",".join(f"{r:.2f}" for r in rewards)
     print(
         f"[END] success={str(success).lower()} steps={steps} score={score:.2f} rewards={rewards_str}",
@@ -343,6 +349,7 @@ def run_baseline(task: str, n_episodes: int, base_url: str, policy: str = "basel
 
         # Score = mean reward across all steps, clamped to [0, 1]
         score = min(1.0, max(0.0, sum(all_rewards) / len(all_rewards))) if all_rewards else 0.0
+        score = _clamp_final_score(score)
         success = score >= SUCCESS_SCORE_THRESHOLD
 
     except Exception as exc:
@@ -398,7 +405,7 @@ async def main() -> None:
         print(f"[DEBUG] Cannot reach server at {base_url} after 15 attempts.", file=sys.stderr, flush=True)
         # Still emit required log lines so judges see output
         log_start(task=args.task, env=BENCHMARK, model=MODEL_NAME)
-        log_end(success=False, steps=0, score=0.0, rewards=[])
+        log_end(success=False, steps=0, score=0.01, rewards=[])
         sys.exit(0)  # exit cleanly — non-zero would be flagged as unhandled exception
 
     run_baseline(task=args.task, n_episodes=args.episodes, base_url=base_url, policy=args.policy)

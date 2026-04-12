@@ -1,6 +1,8 @@
+spec_version: 1
 name: rag-rl
 description: RL environment for evidence selection in retrieval-augmented generation
 version: "1.0"
+app: server.app:app
 
 tasks:
   - id: easy
@@ -8,48 +10,21 @@ tasks:
     difficulty: easy
     description: Redundancy-heavy evidence selection with a small budget
     max_steps: 2
-    grader:
-      metric: total_reward
-      target: 0.75
-      reward_range: [0.0, 1.0]
-      components:
-        - answer_quality
-        - evidence_precision
-        - evidence_recall
+    grader: graders.easy:EasyGrader
 
   - id: medium
     name: medium
     difficulty: medium
     description: Stale docs, contradictions, and adversarial summaries under moderate budget pressure
     max_steps: 3
-    grader:
-      metric: total_reward
-      target: 0.65
-      reward_range: [0.0, 1.0]
-      components:
-        - answer_quality
-        - evidence_precision
-        - evidence_recall
-        - contradiction_penalty
-        - diversity_bonus
+    grader: graders.medium:MediumGrader
 
   - id: hard
     name: hard
     difficulty: hard
     description: Tight-budget multi-hop evidence composition with partial-support distractors
     max_steps: 4
-    grader:
-      metric: total_reward
-      target: 0.55
-      reward_range: [0.0, 1.0]
-      components:
-        - answer_quality
-        - evidence_precision
-        - evidence_recall
-        - contradiction_penalty
-        - diversity_bonus
-        - minimality_bonus
-        - budget_penalty
+    grader: graders.hard:HardGrader
 
 endpoints:
   reset: POST /reset
