@@ -263,7 +263,7 @@ def _select_chunks_smart(obs: dict) -> List[int]:
 # ---------------------------------------------------------------------------
 
 
-def run_baseline(task: str, n_episodes: int, base_url: str, policy: str = "baseline") -> float:
+def run_baseline(task: str, n_episodes: int, base_url: str, policy: str = "smart") -> float:
     reset_url = f"{base_url}/reset"
     step_url = f"{base_url}/step"
 
@@ -369,7 +369,7 @@ async def main() -> None:
     parser = argparse.ArgumentParser(description="RAG-RL baseline inference script")
     parser.add_argument("--task", choices=["easy", "medium", "hard", "all"], default="all")
     parser.add_argument("--episodes", type=int, default=1)
-    parser.add_argument("--policy", default="baseline", choices=["baseline", "smart"])
+    parser.add_argument("--policy", default="smart", choices=["baseline", "smart"])
     parser.add_argument(
         "--host",
         default=os.getenv("RAG_RL_HOST", "localhost"),
