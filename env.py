@@ -421,14 +421,17 @@ class RagRLEnvironment:
         self._last_answer_quality = quality  # will appear in next observation
 
         # ── Early-exit: reward efficient agents that nail the answer ──────────
-        # If an agent achieves full fact-group coverage AND high answer quality
-        # (≥ 0.85) the episode ends immediately — no forced extra steps.
-        # This rewards agents that don't waste token budget refinement steps
-        # when they've already found the right evidence.
+        # Require at least two steps before the quality-based early exit can
+        # fire. This keeps episode traces in the expected START, STEP, STEP,
+        # END shape while still allowing strong agents to finish early.
         self._done = (
             self.episode_step >= self.task.max_steps
             or self.token_budget_remaining <= 0
-            or (evidence_recall == 1.0 and quality >= 0.85)
+            or (
+                self.episode_step >= 2
+                and evidence_recall == 1.0
+                and quality >= 0.85
+            )
         )
 
         info = {
