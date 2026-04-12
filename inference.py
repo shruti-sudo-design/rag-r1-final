@@ -214,7 +214,8 @@ def _select_chunks_smart(obs: dict) -> List[int]:
     last_quality = obs.get("last_answer_quality")
     candidate_costs = obs.get("candidate_token_costs", [c["token_count"] for c in chunks])
 
-    # If last quality was high, go minimal — just keep best current chunk
+    # If the previous step already achieved high quality, switch to a minimal
+    # single-chunk answer to preserve token efficiency on refinement steps.
     if last_quality is not None and last_quality >= 0.80:
         current = [i for i, c in enumerate(chunks) if c.get("is_current", True)]
         if current:
@@ -231,6 +232,7 @@ def _select_chunks_smart(obs: dict) -> List[int]:
 
     selected = []
     tokens_used = 0
+    force_second_chunk = last_quality is None
 
     for idx in candidates:
         cost = candidate_costs[idx] if idx < len(candidate_costs) else chunks[idx]["token_count"]
@@ -251,7 +253,11 @@ def _select_chunks_smart(obs: dict) -> List[int]:
         selected.append(idx)
         tokens_used += cost
 
-        # Stop at 2 chunks — minimality bonus kicks in
+        # On the first step, try to gather two diverse pieces of evidence when
+        # the budget allows. On later steps, one strong chunk is often enough.
+        if len(selected) == 1 and force_second_chunk:
+            continue
+
         if len(selected) >= 2:
             break
 
