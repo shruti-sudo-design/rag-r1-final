@@ -190,3 +190,10 @@ Then open `http://localhost:7860/docs` for the interactive API.
 | `HF_TOKEN` | — | HuggingFace / LLM API key |
 | `API_BASE_URL` | `https://router.huggingface.co/v1` | OpenAI-compatible LLM endpoint |
 | `MODEL_NAME` | `Qwen/Qwen2.5-72B-Instruct` | Model for answer generation and judging |
+
+---
+
+## Links
+
+- Hugging Face Space: https://huggingface.co/spaces/shrutianubolu/rag-rl
+- GitHub Repository: https://github.com/shruti-sudo-design/rag-r1-final
