@@ -789,21 +789,48 @@ def _task_record(task_id: str) -> dict:
     g = spec["grader"]
     return {
         "id": task_id,
+        "task_id": task_id,
+        "task": task_id,
         "name": task_id,
         "difficulty": task_id,
         "description": spec["description"],
         "max_steps": spec["max_steps"],
         "has_grader": True,
         "grader": dict(g),
+        "grading": dict(g),
         # Flat copies for any client that read metric/target at the top level
         "metric": g["metric"],
         "target": g["target"],
         "reward_range": list(g["reward_range"]),
+        "components": list(g["components"]),
+        "grader_endpoint": f"/grader/{task_id}",
+        "grader_url": f"/grader/{task_id}",
     }
 
 
 _TASK_GRADERS = {tid: _task_record(tid) for tid in _TASK_SPECS}
 _TASKS_LIST = [_TASK_GRADERS[k] for k in ("easy", "medium", "hard")]
+
+
+def _grader_record(task_id: str) -> dict:
+    g = _TASK_SPECS[task_id]["grader"]
+    return {
+        "id": task_id,
+        "task_id": task_id,
+        "task": task_id,
+        "name": task_id,
+        "has_grader": True,
+        "metric": g["metric"],
+        "target": g["target"],
+        "reward_range": list(g["reward_range"]),
+        "components": list(g["components"]),
+        "grader": dict(g),
+        "grading": dict(g),
+    }
+
+
+_GRADER_LIST = [_grader_record(k) for k in ("easy", "medium", "hard")]
+_GRADER_MAP = {item["task"]: item for item in _GRADER_LIST}
 
 
 @app.get("/tasks")
@@ -814,18 +841,44 @@ def get_tasks():
 
 @app.get("/grader")
 def grader(task: Optional[str] = None):
-    """Return grader info. No param → list of all task records with graders. ?task=easy → one task."""
-    if task and task in _TASK_GRADERS:
-        return _TASK_GRADERS[task]
-    return _TASKS_LIST
+    """Return grader info.
+
+    Compatibility notes:
+      - `?task=easy` returns the single grader record for that task.
+      - No query parameter returns a list so automated validators can enumerate
+        graders without needing to know a custom wrapper shape.
+    """
+    if task and task in _GRADER_MAP:
+        return _GRADER_MAP[task]
+    return _GRADER_LIST
+
+
+@app.get("/graders")
+def graders():
+    """Alias for clients that probe `/graders` instead of `/grader`."""
+    return _GRADER_LIST
+
+
+@app.get("/grader-registry")
+def grader_registry():
+    """Registry-style grader metadata for clients that prefer keyed objects."""
+    return {
+        "tasks": _TASKS_LIST,
+        "graders": {
+            item["task"]: item
+            for item in _GRADER_LIST
+        },
+        "task_ids": list(_GRADER_MAP.keys()),
+        "count": len(_GRADER_LIST),
+    }
 
 
 @app.get("/grader/{task_name}")
 def grader_for_task(task_name: str):
     """Task-specific grader endpoint (required by OpenEnv validator)."""
-    if task_name not in _TASK_GRADERS:
+    if task_name not in _GRADER_MAP:
         raise HTTPException(status_code=404, detail=f"Unknown task '{task_name}'")
-    return _TASK_GRADERS[task_name]
+    return _GRADER_MAP[task_name]
 
 
 @app.get("/openenv.yaml", response_class=PlainTextResponse, include_in_schema=False)

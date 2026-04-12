@@ -35,7 +35,7 @@ from sentence_transformers import SentenceTransformer
 
 API_BASE_URL     = os.getenv("API_BASE_URL") or "https://router.huggingface.co/v1"
 MODEL_NAME       = os.getenv("MODEL_NAME")   or "Qwen/Qwen2.5-72B-Instruct"
-API_KEY          = os.getenv("API_KEY")      # validator injects this — do NOT fall back to HF_TOKEN
+API_KEY          = os.getenv("API_KEY") or os.getenv("HF_TOKEN")
 LOCAL_IMAGE_NAME = os.getenv("LOCAL_IMAGE_NAME") # optional — only used with from_docker_image()
 
 BENCHMARK = "rag-rl"
@@ -65,11 +65,15 @@ def _semantic_similarity(reference: str, generated: str) -> float:
 
 def _client() -> OpenAI:
     """OpenAI-compatible client — reads env vars at call time (not import time).
-    Uses os.environ so the validator-injected API_KEY is always picked up.
+    Accepts either API_KEY or HF_TOKEN because hackathon validators and local
+    setups are not fully consistent about the variable name they inject.
     """
+    api_key = os.environ.get("API_KEY") or os.environ.get("HF_TOKEN")
+    if not api_key:
+        raise RuntimeError("Missing API key: set API_KEY or HF_TOKEN")
     return OpenAI(
-        base_url=os.environ["API_BASE_URL"],
-        api_key=os.environ["API_KEY"],
+        base_url=os.environ.get("API_BASE_URL", API_BASE_URL),
+        api_key=api_key,
     )
 
 

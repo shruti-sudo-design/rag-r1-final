@@ -57,3 +57,5 @@ endpoints:
   state: GET /state
   tasks: GET /tasks
   grader: GET /grader
+  graders: GET /graders
+  grader_registry: GET /grader-registry
