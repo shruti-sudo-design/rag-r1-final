@@ -11,7 +11,7 @@ from sentence_transformers import SentenceTransformer
 
 from corpus_generator import load_or_generate_corpus
 from inference import generate_answer, judge_answer, _semantic_similarity
-from tasks import TaskConfig
+from task_configs import TaskConfig
 
 from pydantic import BaseModel, Field
 

@@ -10,7 +10,7 @@ import os
 import random
 from typing import Any
 
-from tasks import TaskConfig
+from task_configs import TaskConfig
 
 
 # ---------------------------------------------------------------------------

@@ -13,7 +13,7 @@ from fastapi.responses import HTMLResponse, PlainTextResponse
 from pydantic import BaseModel
 
 from env import Observation, RagRLEnvironment, Reward
-from tasks import TASKS
+from task_configs import TASK_CONFIGS
 
 # ---------------------------------------------------------------------------
 # Request / Response models
@@ -45,10 +45,10 @@ _active_task: str = "easy"
 
 
 def _get_env(task_name: str) -> RagRLEnvironment:
-    if task_name not in TASKS:
-        raise HTTPException(status_code=400, detail=f"Unknown task '{task_name}'. Choose from: {list(TASKS)}")
+    if task_name not in TASK_CONFIGS:
+        raise HTTPException(status_code=400, detail=f"Unknown task '{task_name}'. Choose from: {list(TASK_CONFIGS)}")
     if task_name not in _envs:
-        _envs[task_name] = RagRLEnvironment(TASKS[task_name])
+        _envs[task_name] = RagRLEnvironment(TASK_CONFIGS[task_name])
     return _envs[task_name]
 
 
