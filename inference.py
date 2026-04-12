@@ -263,7 +263,7 @@ def _select_chunks_smart(obs: dict) -> List[int]:
 # ---------------------------------------------------------------------------
 
 
-def run_baseline(task: str, n_episodes: int, base_url: str, policy: str = "baseline") -> None:
+def run_baseline(task: str, n_episodes: int, base_url: str, policy: str = "baseline") -> float:
     reset_url = f"{base_url}/reset"
     step_url = f"{base_url}/step"
 
@@ -357,6 +357,7 @@ def run_baseline(task: str, n_episodes: int, base_url: str, policy: str = "basel
 
     finally:
         log_end(success=success, steps=steps_taken, score=score, rewards=all_rewards)
+    return score
 
 
 # ---------------------------------------------------------------------------
@@ -366,8 +367,8 @@ def run_baseline(task: str, n_episodes: int, base_url: str, policy: str = "basel
 
 async def main() -> None:
     parser = argparse.ArgumentParser(description="RAG-RL baseline inference script")
-    parser.add_argument("--task", default="easy", choices=["easy", "medium", "hard"])
-    parser.add_argument("--episodes", type=int, default=5)
+    parser.add_argument("--task", choices=["easy", "medium", "hard", "all"], default="all")
+    parser.add_argument("--episodes", type=int, default=1)
     parser.add_argument("--policy", default="baseline", choices=["baseline", "smart"])
     parser.add_argument(
         "--host",
@@ -404,11 +405,28 @@ async def main() -> None:
     if not _health_ok:
         print(f"[DEBUG] Cannot reach server at {base_url} after 15 attempts.", file=sys.stderr, flush=True)
         # Still emit required log lines so judges see output
-        log_start(task=args.task, env=BENCHMARK, model=MODEL_NAME)
+        fail_task = "easy" if args.task == "all" else args.task
+        log_start(task=fail_task, env=BENCHMARK, model=MODEL_NAME)
         log_end(success=False, steps=0, score=0.01, rewards=[])
         sys.exit(0)  # exit cleanly — non-zero would be flagged as unhandled exception
 
-    run_baseline(task=args.task, n_episodes=args.episodes, base_url=base_url, policy=args.policy)
+    tasks_to_run = ["easy", "medium", "hard"] if args.task == "all" else [args.task]
+    scores = []
+    for task_name in tasks_to_run:
+        score = run_baseline(
+            task=task_name,
+            n_episodes=args.episodes,
+            base_url=base_url,
+            policy=args.policy,
+        )
+        scores.append((task_name, score))
+
+    if len(scores) > 1:
+        avg_score = sum(score for _, score in scores) / len(scores)
+        print("===== FINAL SCORES =====", file=sys.stderr, flush=True)
+        for task_name, score in scores:
+            print(f"  {task_name}: {score:.4f}", file=sys.stderr, flush=True)
+        print(f"  Average: {avg_score:.4f}", file=sys.stderr, flush=True)
 
 
 if __name__ == "__main__":
